@@ -1,4 +1,4 @@
-from avengers_phone_app import app, db
+from avengers_phone_app import app, db, login_manager
 
 # Import all of the Werkzeug Security methods
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,11 +6,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Import for DateTime Module (This comes from python)
 from datetime import datetime
 
+# Import for the Login Manager UserMixin
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(hero_id):
+    return User.query.get(int(hero_id))
+
 # The User class will have 
 # An id, heroname, email, 
 # password, phonenumber, 
 
-# now creating a SQL table class user
+
 class Hero(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(50), nullable = False, unique = True)
@@ -33,5 +40,4 @@ class Hero(db.Model):
         return generate_password_hash(password)
 
     def __repr__(self):
-        return f"{self.name}'s phonebook entry has created with the phone"\
-            + f" number: {self.phone} and the email: {self.email}."
+        return f"{self.name}'s phonebook entry has created with the phone, number: {self.phone} and the email: {self.email}."
