@@ -1,17 +1,10 @@
-from avengers_phone_app import app, db, login_manager
+from avengers_phone_app import app, db
 
 # Import all of the Werkzeug Security methods
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Import for DateTime Module (This comes from python)
 from datetime import datetime
-
-# Import for the Login Manager UserMixin
-from flask_login import UserMixin
-
-@login_manager.user_loader
-def load_user(hero_id):
-    return User.query.get(int(hero_id))
 
 # The User class will have 
 # An id, heroname, email, 
