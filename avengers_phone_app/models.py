@@ -17,7 +17,11 @@ def load_user(hero_id):
 # An id, heroname, email, 
 # password, phonenumber, 
 
-# now creating a SQL table class user
+@login_manager.user_loader
+def load_user(hero_id): 
+    return User.query.get(int(hero_id))
+
+# now creating a SQL table class hero
 class Hero(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(50), nullable = False, unique = True)
