@@ -1,0 +1,23 @@
+  
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+ 
+
+    <a href="{{ url_for('home') }}">
+        <button class="btn btn-primary">Back to Home</button>
+    </a>
+
+    <a href="{{ url_for('update_phone', user_id = user.id) }}">
+        <button class="btn btn-primary">Update Phone Number</button>
+    </a>
+
+    <!--TODO Add Delete Button URL-->
+    <a href="{{ url_for('post_delete', user_id = user.id) }}">
+        <button class="btn btn-danger">Delete Account</button>
+    </a>
+</div>
+
+{% endblock content 

@@ -14,3 +14,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email()])
     password = PasswordField('Password', validators = [DataRequired()])
     submit = SubmitField()
+
+class PhoneForm(FlaskForm):
+    phone = StringField('Phone', validators= [DataRequired()])
+    submit = SubmitField()
