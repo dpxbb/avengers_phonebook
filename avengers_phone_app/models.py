@@ -38,7 +38,7 @@ class User(db.Model):
             which will be stored inside the database
         """
         self.pw_hash = generate_password_hash(password)
-        return generate_password_hash(password)
+        return self.pw_hash
 
     def __repr__(self):
         return f"{self.name}'s phonebook entry has created with the phone, number: {self.phone} and the email: {self.email}."

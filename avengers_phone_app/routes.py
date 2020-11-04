@@ -1,8 +1,7 @@
 from avengers_phone_app import app, db
 from flask import render_template, request, url_for, redirect
-from avengers_phone_app.forms import UserInfoForm, LoginForm, PhoneForm
 
-from avengers_phone_app.forms import UserInfoForm, LoginForm
+from avengers_phone_app.forms import UserInfoForm, LoginForm, PhoneForm
 from avengers_phone_app.models import User, check_password_hash
 
 from flask_login import login_required, login_user, current_user, logout_user
@@ -10,8 +9,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 # Default Home Route
 @app.route('/')
 def home():
-    users = User.query.all()
-    return render_template('home.html', users = users)
+    return render_template('home.html')
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -58,6 +56,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/updatephone/<int:user_id>', methods = ['GET', 'POST'])
 def updatePhone(user_id):
     form = PhoneForm()
@@ -69,12 +68,6 @@ def updatePhone(user_id):
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('update_phone.html', phone_form = form)
-
-
-@app.route('/deatils/int:user_id>')
-def detail(user_id):
-    user = User.query.get_or_404(user_id)
-    return render_template('/details.html', user = user)
 
 @app.route('/delete/<int:user_id>', methods = ['GET', 'DELETE'])
 @login_required
