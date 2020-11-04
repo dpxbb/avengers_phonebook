@@ -9,20 +9,16 @@ from datetime import datetime
 # Import for the Login Manager UserMixin
 from flask_login import UserMixin
 
-@login_manager.user_loader
-def load_user(hero_id):
-    return User.query.get(int(hero_id))
-
 # The User class will have 
 # An id, heroname, email, 
 # password, phonenumber, 
 
 @login_manager.user_loader
-def load_user(hero_id): 
-    return User.query.get(int(hero_id))
+def load_user(user_id): 
+    return User.query.get(int(user_id))
 
 # now creating a SQL table class hero
-class Hero(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(50), nullable = False, unique = True)
     phone = db.Column(db.String(20), unique = True)
@@ -35,12 +31,13 @@ class Hero(db.Model):
         self.email = email
         self.password = self.set_password(password)
 
-    def set_password(password):
+    def set_password(self, password):
         """
             Grab the password that is pased into the method
             return the hashed version of the password
             which will be stored inside the database
         """
+        self.pw_hash = generate_password_hash(password)
         return generate_password_hash(password)
 
     def __repr__(self):
